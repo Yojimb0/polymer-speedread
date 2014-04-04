@@ -1,0 +1,11 @@
+/dist
+node_modules/
+bower_components/
+.tmp
+.sass-cache
+designs/
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+sftp-config
+.grunt

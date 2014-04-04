@@ -1,0 +1,27 @@
+{
+  "name": "polymer-speedread",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Yojimb0/polymer-speedread",
+  "authors": [
+    "Yojimbo <pypointereau+web@gmail.com>"
+  ],
+  "description": "Speed reading polymer component (Using simplified ideas and design, highly inspired by spritzinc.com)",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "Polymer",
+    "web-components"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~0.2.2"
+  }
+}
