@@ -1,8 +1,8 @@
 # &lt;polymer-speedread&gt;
 
-Speed reading Web Component using Polymer (Using highly inspired simplified ideas and design, by spritzinc.com)
+Speed reading Web Component using Polymer, highly inspired by [spritzinc.com](http://www.spritzinc.com) (using simplified ideas and design)
 
-> Maintained by [Pierre-Yves](https://github.com/Yojimb0).
+> Maintained by [Yojimbo](https://github.com/Yojimb0).
 
 ## Demo
 
