@@ -1,0 +1,23 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-speedread">
+	<template>
+		<link rel="stylesheet" href="polymer-speedread.css" inline="true">
+		<div class="polymer-speedread">
+			<div class="output">
+				<span class="word"><span class="start">{{wordStart}}</span>{{wordCenter}}<span class="end">{{wordEnd}}</span></span>
+			</div>
+			<div class="controls">
+				<input id="speed" type="range" value="{{speed}}" step="10">
+				<span class="speed">{{speedWord}} words per min</span>
+				<div>
+					<button on-click="{{read}}">{{readText}}</button>
+					<button on-click="{{reset}}">Reset</button>
+					<button on-click="{{back}}">Back 10 words</button>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script src="polymer-speedread.js" inline="true"></script>
+</polymer-element>

@@ -1,0 +1,122 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-speedread">
+	<template>
+		<style>*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.controls input,.controls button{display:inline-block;vertical-align:middle}[unresolved]{opacity:0}.polymer-speedread{border:1px solid #eee;padding:10px;background:#f5f5f5}.output{padding:5px;position:relative;width:100%;border:1px solid #ddd;height:2em;margin-bottom:10px;background:#fff}.output .word{color:red;position:absolute;top:50%;left:50%;-webkit-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.output .word span{color:#000;position:absolute;top:0;white-space:nowrap}.output .start{right:100%}.output .end{left:100%}.controls{text-align:center}.controls input{margin:0 15px 0 0;position:relative;display:inline-block}.controls button{border:none;background:#aaa;color:#fff;font-weight:bold;border-radius:2px;border:1px solid #888;font-size:0.8em;cursor:pointer}</style>
+		<div class="polymer-speedread">
+			<div class="output">
+				<span class="word"><span class="start">{{wordStart}}</span>{{wordCenter}}<span class="end">{{wordEnd}}</span></span>
+			</div>
+			<div class="controls">
+				<input id="speed" type="range" value="{{speed}}" step="10">
+				<span class="speed">{{speedWord}} words per min</span>
+				<div>
+					<button on-click="{{read}}">{{readText}}</button>
+					<button on-click="{{reset}}">Reset</button>
+					<button on-click="{{back}}">Back 10 words</button>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script>// Polymer component declaration
+		Polymer('polymer-speedread', {
+			readText:		'Read',
+			speed:			0,
+			speedMax:		50,
+			speedMin:		300,
+			wordStart:		'',
+			wordCenter:		'',
+			wordEnd:		'',
+			wordList:		[],
+			currentWord:	0,
+			idTimeout:		null,
+
+
+			ready: function() {
+				this.speed = 20;
+				this.initWordList();
+			},
+
+			// Initialize the word list
+			initWordList: function(){
+				// separate line-breaks, to consider them as a specific array element
+				// (We try to get \n minimum once (+) and replace it by [space]\n[space]
+				//  so the split can consider it as one separate item)
+				var wordList = this.trim(this.textContent).replace(/\n+/g,' \n ');
+				this.wordList = wordList.split(' ');
+				this.currentWord = 0;
+				clearTimeout(this.idTimeout);
+			},
+
+			speedChanged: function(oldValue, newValue){
+				this.speedMs = ((this.speedMin-this.speedMax)*(100-newValue)/100)+this.speedMax;
+				this.speedWord = Math.floor(60000/this.speedMs);
+			},
+
+			read: function(){
+				if(this.readText === 'Read'){
+					this.readText = 'Pause';
+					this.readWord();
+					
+				}else{
+					this.readText = 'Read';
+					clearTimeout(this.idTimeout);
+				}
+			},
+
+			reset: function(){
+				this.readText = 'Read';
+				this.currentWord = 0;
+				this.wordStart = '';
+				this.wordCenter = '';
+				this.wordEnd = '';
+				clearTimeout(this.idTimeout);
+			},
+
+			back: function(){
+				this.currentWord = (this.currentWord - 10 > 0)? this.currentWord-10 : 0 ;
+			},
+
+			// Read a word
+			readWord: function(){
+				var w = this.wordList[this.currentWord];
+				var c = Math.round(w.length/2);
+
+				// Slicing the word
+				this.wordStart = w.substring(0, c-1);
+				this.wordCenter = w[c-1];
+				this.wordEnd = w.substring(c);
+				console.log('[readWord]] %s[%s]%s',this.wordStart,this.wordCenter,this.wordEnd);
+
+				// Set the cursor on the next word
+				this.currentWord++;
+
+				// Is it finished ?
+				if(this.currentWord >= this.wordList.length){
+					this.currentWord = 0;
+					clearTimeout(this.idTimeout);
+				}else{
+					// Check the current speed choosen
+					var speed = this.speedMs;
+
+					// If we encounter a line-break, let's do a pause
+					if(this.wordCenter==='\n') speed = speed*5;
+
+					// Wait a bit, and read next word
+					this.idTimeout = window.setTimeout(this.readWord.bind(this),speed);
+				}
+			},
+
+			// Text changed ? Reinitialize the word list
+			textChanged: function() {
+				this.initWordList();
+			},
+
+
+			trim: function(str) {
+				return str.replace(/^[^\S\n]+/gm,'');
+			}
+
+		});</script>
+</polymer-element>
