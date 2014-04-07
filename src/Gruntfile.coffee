@@ -19,10 +19,11 @@ module.exports = (grunt) ->
 				options:
 					port: 9000
 					hostname: 'localhost'
+					base: '../'
 
 		open:
 			all:
-				path: 'http://localhost:9000/'
+				path: 'http://localhost:9000/demo.html'
 
 		watch:
 			options:
