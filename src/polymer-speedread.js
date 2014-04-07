@@ -1,7 +1,8 @@
 
 // Polymer component declaration
 		Polymer('polymer-speedread', {
-			readText:		'Read',
+			content:	'',
+			readButton:		'Read',
 			speed:			0,
 			speedMax:		50,
 			speedMin:		300,
@@ -23,7 +24,7 @@
 				// separate line-breaks, to consider them as a specific array element
 				// (We try to get \n minimum once (+) and replace it by [space]\n[space]
 				//  so the split can consider it as one separate item)
-				var wordList = this.trim(this.textContent).replace(/\n+/g,' \n ');
+				var wordList = this.trim(this.content).replace(/\n+/g,' \n ');
 				this.wordList = wordList.split(' ');
 				this.currentWord = 0;
 				clearTimeout(this.idTimeout);
@@ -35,18 +36,18 @@
 			},
 
 			read: function(){
-				if(this.readText === 'Read'){
-					this.readText = 'Pause';
+				if(this.readButton === 'Read'){
+					this.readButton = 'Pause';
 					this.readWord();
 					
 				}else{
-					this.readText = 'Read';
+					this.readButton = 'Read';
 					clearTimeout(this.idTimeout);
 				}
 			},
 
 			reset: function(){
-				this.readText = 'Read';
+				this.readButton = 'Read';
 				this.currentWord = 0;
 				this.wordStart = '';
 				this.wordCenter = '';
@@ -89,7 +90,7 @@
 			},
 
 			// Text changed ? Reinitialize the word list
-			textChanged: function() {
+			attributeChanged: function() {
 				this.initWordList();
 			},
 

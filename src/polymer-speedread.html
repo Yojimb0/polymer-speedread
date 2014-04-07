@@ -1,4 +1,4 @@
-<polymer-element name="polymer-speedread">
+<polymer-element name="polymer-speedread" attributes="content">
 	<template>
 		<link rel="stylesheet" href="polymer-speedread.css" inline="true">
 		<div class="polymer-speedread">
@@ -9,7 +9,7 @@
 				<input id="speed" type="range" value="{{speed}}" step="10">
 				<span class="speed">{{speedWord}} words per min</span>
 				<div>
-					<button on-click="{{read}}">{{readText}}</button>
+					<button on-click="{{read}}">{{readButton}}</button>
 					<button on-click="{{reset}}">Reset</button>
 					<button on-click="{{back}}">Back 10 words</button>
 				</div>
