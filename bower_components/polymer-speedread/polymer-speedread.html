@@ -1,4 +1,4 @@
-<polymer-element name="polymer-speedread">
+<polymer-element name="polymer-speedread" attributes="content">
 	<template>
 		<style>*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.controls input,.controls button{display:inline-block;vertical-align:middle}[unresolved]{opacity:0}.polymer-speedread{border:1px solid #eee;padding:10px;background:#f5f5f5}.output{padding:5px;position:relative;width:100%;border:1px solid #ddd;height:2em;margin-bottom:10px;background:#fff}.output .word{color:red;position:absolute;top:50%;left:50%;-webkit-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.output .word span{color:#000;position:absolute;top:0;white-space:nowrap}.output .start{right:100%}.output .end{left:100%}.controls{text-align:center}.controls input{margin:0 15px 0 0;position:relative;display:inline-block}.controls button{border:none;background:#aaa;color:#fff;font-weight:bold;border-radius:2px;border:1px solid #888;font-size:0.8em;cursor:pointer}</style>
 		<div class="polymer-speedread">
@@ -9,7 +9,7 @@
 				<input id="speed" type="range" value="{{speed}}" step="10">
 				<span class="speed">{{speedWord}} words per min</span>
 				<div>
-					<button on-click="{{read}}">{{readText}}</button>
+					<button on-click="{{read}}">{{readButton}}</button>
 					<button on-click="{{reset}}">Reset</button>
 					<button on-click="{{back}}">Back 10 words</button>
 				</div>
@@ -19,7 +19,8 @@
 
 	<script>// Polymer component declaration
 		Polymer('polymer-speedread', {
-			readText:		'Read',
+			content:	'',
+			readButton:		'Read',
 			speed:			0,
 			speedMax:		50,
 			speedMin:		300,
@@ -41,7 +42,7 @@
 				// separate line-breaks, to consider them as a specific array element
 				// (We try to get \n minimum once (+) and replace it by [space]\n[space]
 				//  so the split can consider it as one separate item)
-				var wordList = this.trim(this.textContent).replace(/\n+/g,' \n ');
+				var wordList = this.trim(this.content).replace(/\n+/g,' \n ');
 				this.wordList = wordList.split(' ');
 				this.currentWord = 0;
 				clearTimeout(this.idTimeout);
@@ -53,18 +54,18 @@
 			},
 
 			read: function(){
-				if(this.readText === 'Read'){
-					this.readText = 'Pause';
+				if(this.readButton === 'Read'){
+					this.readButton = 'Pause';
 					this.readWord();
 					
 				}else{
-					this.readText = 'Read';
+					this.readButton = 'Read';
 					clearTimeout(this.idTimeout);
 				}
 			},
 
 			reset: function(){
-				this.readText = 'Read';
+				this.readButton = 'Read';
 				this.currentWord = 0;
 				this.wordStart = '';
 				this.wordCenter = '';
@@ -107,7 +108,7 @@
 			},
 
 			// Text changed ? Reinitialize the word list
-			textChanged: function() {
+			attributeChanged: function() {
 				this.initWordList();
 			},
 
