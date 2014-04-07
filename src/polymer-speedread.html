@@ -3,7 +3,11 @@
 		<link rel="stylesheet" href="polymer-speedread.css" inline="true">
 		<div class="polymer-speedread">
 			<div class="output">
-				<span class="word"><span class="start">{{wordStart}}</span>{{wordCenter}}<span class="end">{{wordEnd}}</span></span>
+				<span class="word">
+					<span class="start">{{wordStart}}</span>
+					<span class="center">{{wordCenter}}</span>
+					<span class="end">{{wordEnd}}</span>
+				</span>
 			</div>
 			<div class="controls">
 				<input id="speed" type="range" value="{{speed}}" step="10">

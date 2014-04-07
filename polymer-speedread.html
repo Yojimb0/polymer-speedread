@@ -1,9 +1,13 @@
 <polymer-element name="polymer-speedread" attributes="content">
 	<template>
-		<style>*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.controls input,.controls button{display:inline-block;vertical-align:middle}[unresolved]{opacity:0}.polymer-speedread{border:1px solid #eee;padding:10px;background:#f5f5f5}.output{padding:5px;position:relative;width:100%;border:1px solid #ddd;height:2em;margin-bottom:10px;background:#fff}.output .word{color:red;position:absolute;top:50%;left:50%;-webkit-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.output .word span{color:#000;position:absolute;top:0;white-space:nowrap}.output .start{right:100%}.output .end{left:100%}.controls{text-align:center}.controls input{margin:0 15px 0 0;position:relative;display:inline-block}.controls button{border:none;background:#aaa;color:#fff;font-weight:bold;border-radius:2px;border:1px solid #888;font-size:0.8em;cursor:pointer}</style>
+		<style>*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.controls input,.controls button{display:inline-block;vertical-align:middle}[unresolved]{opacity:0}.polymer-speedread{border:1px solid #eee;padding:10px;background:#f5f5f5}.output{padding:5px;position:relative;width:100%;border:1px solid #ddd;height:2em;margin-bottom:10px;background:#fff}.output .word{color:red;position:absolute;top:50%;left:50%;-webkit-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.output .start,.output .end{color:#000;position:absolute;top:0;white-space:nowrap}.output .start{right:100%}.output .end{left:100%}.output .center{left:100%}.controls{text-align:center}.controls input{margin:0 5px;position:relative;display:inline-block}.controls span{white-space:nowrap;margin:0 5px;font-size:80%}.controls div{margin-top:5px}.controls button{border:none;background:#aaa;color:#fff;font-weight:bold;border-radius:2px;border:1px solid #888;font-size:0.8em;cursor:pointer}</style>
 		<div class="polymer-speedread">
 			<div class="output">
-				<span class="word"><span class="start">{{wordStart}}</span>{{wordCenter}}<span class="end">{{wordEnd}}</span></span>
+				<span class="word">
+					<span class="start">{{wordStart}}</span>
+					<span class="center">{{wordCenter}}</span>
+					<span class="end">{{wordEnd}}</span>
+				</span>
 			</div>
 			<div class="controls">
 				<input id="speed" type="range" value="{{speed}}" step="10">
@@ -86,7 +90,7 @@
 				this.wordStart = w.substring(0, c-1);
 				this.wordCenter = w[c-1];
 				this.wordEnd = w.substring(c);
-				console.log('[readWord]] %s[%s]%s',this.wordStart,this.wordCenter,this.wordEnd);
+				// console.log('[readWord]] %s[%s]%s',this.wordStart,this.wordCenter,this.wordEnd);
 
 				// Set the cursor on the next word
 				this.currentWord++;

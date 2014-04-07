@@ -68,7 +68,7 @@
 				this.wordStart = w.substring(0, c-1);
 				this.wordCenter = w[c-1];
 				this.wordEnd = w.substring(c);
-				console.log('[readWord]] %s[%s]%s',this.wordStart,this.wordCenter,this.wordEnd);
+				// console.log('[readWord]] %s[%s]%s',this.wordStart,this.wordCenter,this.wordEnd);
 
 				// Set the cursor on the next word
 				this.currentWord++;
